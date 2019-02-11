@@ -1,0 +1,40 @@
+#!bin/bash
+# this is a list of commands to build enviroment
+aws --version
+#  could be >> aws-cli/1.16.94 Python/2.7.15 Linux/4.14.88-72.76.amzn1.x86_64 botocore/1.12.84
+sudo pip install --upgrade aws-shell
+aws --version
+#  should be > aws-cli/1.16.101 Python/2.7.15 Linux/4.14.88-72.76.amzn1.x86_64 botocore/1.12.91
+sudo yum -y update
+#  INSTALLS LATEST System updates
+sudo yum install git
+#   already latest version? 
+#   update java o 1.8 OpenJDK
+sudo yum -y install java-1.8.0-openjdk-devel
+sudo update-alternatives --config java
+sudo update-alternatives --config javac
+#  now install maven
+sudo wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
+sudo sed -i s/\$releasever/6/g /etc/yum.repos.d/epel-apache-maven.repo
+sudo yum install -y apache-maven
+# check version 
+mvn -version
+## NOTE:
+ # to create a new project with MAVEN
+ # mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+ # change name mycompany to whatever you want to name it... 
+ # Learn more at : https://docs.aws.amazon.com/cloud9/latest/user-guide/sample-java.html#sample-java-sdk-maven
+ #
+ # now istall Gradle
+gradle -version
+ #not found
+curl -s "https://get.sdkman.io" | bash
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+sdk install gradle
+gradle -version
+# should produce a long welcome to gradle message
+## NOTE: 
+#  to create a new applicaion with Gradle
+#  make a directory - mkdir appname - then move to that direcory -  cd appname - then run
+#  gradle init --type java-application
+#  ... now we need to install the APP stuff:
